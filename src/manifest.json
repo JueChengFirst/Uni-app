@@ -54,9 +54,12 @@
 
 	},
 	"mp-weixin": { /* 微信小程序特有相关 */
-		"appid": "",
+		//设置 自己 注册的 appid
+		"appid": "wx158b2aba25e51a4f",
 		"setting": {
-			"urlCheck": false
+			"urlCheck": false,
+			//解除  [sitemap 索引情况提示] 根据 sitemap 的规则[0]，当前页面 [pages/index/index] 将不被索引 的警告
+			"checkSiteMap": false
 		},
 		"usingComponents": true
 	},
