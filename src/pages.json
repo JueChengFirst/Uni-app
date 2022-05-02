@@ -7,10 +7,33 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		},
+		{
+			"path": "pages/cart/cart",
+
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/cate/cate",
+
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/my",
+
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
 		}
 	],
 	//创建 tabBar 页面
 	"tabBar": {
+		"color": "#0000000",
+		"backgroundColor": "#ffffff",
 		"selectedColor": "#C00000",
 		"list": [
 			{
