@@ -1,5 +1,5 @@
 <template>
-  <view>购物车</view>
+  <view>goods_list</view>
 </template>
 
 <script>

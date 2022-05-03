@@ -1,6 +1,6 @@
 {
-	//所有页面
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	//所有主页面
+	"pages": [ //pages数组中第一项表示应用启动页
 		{
 			"path": "pages/home/home",
 
@@ -28,6 +28,20 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		}
+	],
+	//所有分包页面
+	"subPackages": [
+		{
+			"root": "subpages",
+			"pages": [
+				{
+					"path": "goods_detail/goods_detail"
+				},
+				{
+					"path": "goods_list/goods_list"
+				}
+			]
 		}
 	],
 	//创建 tabBar 页面
