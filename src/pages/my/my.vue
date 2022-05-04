@@ -1,5 +1,6 @@
 <template>
-      <view>My</view>
+      <view>
+      </view>
 </template>
 
 <script>
