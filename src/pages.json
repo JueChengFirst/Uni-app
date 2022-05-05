@@ -40,6 +40,9 @@
 				},
 				{
 					"path": "goods_list/goods_list"
+				},
+				{
+					"path": "search_list/search_list"
 				}
 			]
 		}

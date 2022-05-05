@@ -1,5 +1,5 @@
 <template>
-  <view>分包</view>
+  <view>goods_detail</view>
 </template>
 
 <script>

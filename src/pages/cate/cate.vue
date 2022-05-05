@@ -1,6 +1,17 @@
 <template>
-  <!-- 搭建分类页面 -->
+
+<view>
+  <!-- 自定义的组件 
+         自定义事件,实现页面的跳转;在组件页面必须配置触发事件;
+         触发事件中添加 this.$emit('自定义事件名称')
+  -->
+  <view class="my-search" @click="gotoSearch">
+          <my-search ></my-search>
+  </view>
+
+ <!-- 搭建分类页面 -->
   <view class="scroll-view-container">
+
     <!--  左侧的滚动视图区域  一级列表区域
                  使用组件 scroll-view实现滑动效果,必须配置 scroll-y滑动方向和高度;
                  获取设备页面可用高度 方法uni.getSystemInfo().windowHeight实现 
@@ -42,10 +53,17 @@
             </block>
    </scroll-view>
   </view>
+
+</view>
+ 
 </template>
 
 <script>
+// 导入组件 
+import mySearch from '../../components/my-search/my-search.vue';
+
 export default {
+  components: { mySearch },
   data() {
     return {
       //分类数据列表  所有分类列表数据
@@ -66,7 +84,7 @@ export default {
     //获取 设备信息 --> 调用 uni.getSystemInfoSync()方法
     const systemInfo = uni.getSystemInfoSync();
     //将设备可用高度 赋值给 height
-    this.ht = systemInfo.windowHeight;
+    this.ht = systemInfo.windowHeight - 60;
 
   },
   methods: {
@@ -98,9 +116,17 @@ export default {
         uni.navigateTo({ 
           url: '/subpages/goods_list/goods_list?cid='+item3.cat_id 
         })
+    },
+
+    //实现搜索组件的页面跳转
+    gotoSearch(){
+      
+      uni.navigateTo({
+            url:"/subpages/search_list/search_list"
+        })
     }
-  },
-  
+ 
+  } 
 };
 </script>
 <style lang='scss' scoped>
@@ -163,5 +189,13 @@ export default {
             }
         }
   }
+}
+.my-search{
+    // 设置定位效果为“吸顶”
+  position: sticky;
+  // 吸顶的“位置”
+  top: 0;
+  // 提高层级，防止被轮播图覆盖
+  z-index: 999;
 }
 </style>

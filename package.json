@@ -66,12 +66,13 @@
     "@dcloudio/uni-quickapp-native": "^2.0.1-34720220422002",
     "@dcloudio/uni-quickapp-webview": "^2.0.1-34720220422002",
     "@dcloudio/uni-stat": "^2.0.1-34720220422002",
+    "@dcloudio/uni-ui": "^1.4.14",
     "@escook/request-miniprogram": "^0.2.1",
     "@vue/shared": "^3.0.0",
     "core-js": "^3.6.5",
     "flyio": "^0.6.2",
     "regenerator-runtime": "^0.12.1",
-    "sass": "^1.51.0",
+    "uni-ui": "^1.0.0",
     "vue": "^2.6.11",
     "vuex": "^3.2.0"
   },
@@ -96,6 +97,8 @@
     "mini-types": "*",
     "miniprogram-api-typings": "*",
     "postcss-comment": "^2.0.0",
+    "sass": "^1.51.0",
+    "sass-loader": "^10.1.1",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [

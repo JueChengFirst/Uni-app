@@ -1,6 +1,10 @@
 <template>
-  <!-- 轮播图区域   -->
   <view>
+  <!--搜索组件区域  -->
+    <view class="my-search">
+      <my-search @click="gotoSearch"></my-search>
+    </view>
+  <!-- 轮播图区域   -->
     <swiper
       :indicator-dots="true"
       :autoplay="true"
@@ -159,6 +163,13 @@ export default {
   })
       this.floorList = res.message;
     },
+
+    //搜索实现导航栏的跳转
+    gotoSearch(){
+      uni.navigateTo({
+            url:"/subpages/search_list/search_list"
+        })
+    }
   },
 };
 </script>
@@ -209,5 +220,14 @@ swiper {
 
     }
   }
+}
+.my-search{
+  // 设置定位效果为“吸顶”
+  position: sticky;
+  // 吸顶的“位置”
+  top: 0;
+  // 提高层级，防止被轮播图覆盖
+  z-index: 999;
+  margin-top: -20px;
 }
 </style>
