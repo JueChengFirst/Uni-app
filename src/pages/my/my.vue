@@ -1,14 +1,17 @@
 <template>
       <view>
+         
       </view>
 </template>
 
 <script>
+
 export default {
 
 }
 </script>
 
-<style>
+
+Test<style>
 
 </style>

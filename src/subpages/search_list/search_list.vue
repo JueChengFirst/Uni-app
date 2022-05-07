@@ -66,6 +66,7 @@
       * 导入uni-ui框架,选取需要的组件 uniSearchbar进行使用
  */
 import {uniSearchBar,uniIcons}  from  '@dcloudio/uni-ui'
+
 export default {
   //组件服务于整体
   components:{uniSearchBar,uniIcons},
@@ -248,7 +249,6 @@ export default {
       text-align: center;
       line-height: 75rpx;
       border: 1px solid #efefef;
-
       margin-top: 5px;
       margin-right: 5px;
     }

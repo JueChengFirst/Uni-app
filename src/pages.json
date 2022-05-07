@@ -39,7 +39,13 @@
 					"path": "goods_detail/goods_detail"
 				},
 				{
-					"path": "goods_list/goods_list"
+					"path": "goods_list/goods_list",
+					// 自定义 距离底部的距离实现刷新效果
+					"style":{
+						"onReachBottomDistance": 150,
+						"enablePullDownRefresh": true,
+						"backgroundColor": "#F8F8F8"
+					}
 				},
 				{
 					"path": "search_list/search_list"
