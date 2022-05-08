@@ -1,15 +1,137 @@
 <template>
-  <view>goods_detail</view>
+  <!-- 解决商品价格 简介等闪烁问题 判断goodsInfo是否存在数据 -->
+  <view v-if="goodsInfo.goods_name" class="goods-detail-container">
+    <!-- 轮播图区域  -->
+    <swiper indicator-dots autoplay circular interval="3000" duration="1000">
+      <!-- 当前图片绑定点击事件,传递参数为索引,传递给preview()函数 -->
+      <swiper-item
+        v-for="(item, i) in goodsInfo.pics"
+        :key="i"
+        @click="preview(i)"
+      >
+        <image :src="item.pics_big" mode="scaleToFill" />
+      </swiper-item>
+    </swiper>
+    <!-- 商品信息区域 -->
+    <view class="goods-info-box">
+      <!-- 商品的价格 -->
+      <view class="goods-price">￥{{ goodsInfo.goods_price }}</view>
+      <!-- 信息主体部分 -->
+      <view class="goods-content">
+        <!-- 商品简介 -->
+        <view class="goods-intro">{{ goodsInfo.goods_name }}</view>
+        <!-- 收藏图标 -->
+        <view class="goods-icon">
+          <!--通过矢量图标来进行实现 -->
+          <uni-icons type="star" color="gray" size="25" />
+          <view>收藏</view>
+        </view>
+      </view>
+      <!-- 运费 -->
+      <view class="goods-carriage">快递:免运费</view>
+    </view>
+    <!-- 商品使用展示区域 
+        rich-text组价 中的node属性可以展示 html代码-->
+    <rich-text :nodes="goodsInfo.goods_introduce"></rich-text>
+
+    <!-- 商品底部导航区域  通过组件 uni-goods-nav 来进行实现-->
+    <view class="goods-nav"> 
+      <uni-goods-nav :fill="true"  :options="options" :buttonGroup="buttonGroup"  @click="onClick" @buttonClick="buttonClick" />
+    </view>
+
+  </view>
 </template>
 
 <script>
+import { uniGoodsNav} from "@dcloudio/uni-ui";
 export default {
+  components: {uniGoodsNav},
   data() {
     return {
-      
+      //创建商品详情的对象
+      goodsInfo: {},
+
+      //组件 uni-goods-nav 所需参数
+      //左边标签 参数
+      options: [
+        {
+          icon: "shop",
+          text: "店铺",
+          info: 0,
+          infoBackgroundColor: "#007aff",
+          infoColor: "red",
+    
+        },
+        {
+          icon: "cart",
+          text: "购物车",
+          info: 0,
+        },
+      ],
+      //右边标签 参数
+      buttonGroup: [
+        {
+          text: "加入购物车",
+          backgroundColor: "#ff0000",
+          color: "#fff",
+        },
+        {
+          text: "立即购买",
+          backgroundColor: "#ffa200",
+          color: "#fff",
+        },
+      ],
+
     };
   },
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    //将其他页面的传递的参数赋值给goodsId
+    const goods_id = options.goods_id || "";
+
+    //调用请求商品详情数据的方法
+    this.getGoodsDetail(goods_id);
+  },
+  methods: {
+    // //请求数据 3 步
+    async getGoodsDetail(goods_id) {
+      const { data: res } = await uni.$http.get("/api/public/v1/goods/detail", {
+        goods_id,
+      });
+
+      if (res.meta.status !== 200) return uni.$showMsg();
+
+      // 处理接收到的代码存在间隙问题  给html代码中的所有img标签添加 block属性
+      //ios 系统无法识别 .wep 结尾的图片;所有将所有.wep结尾的图片替换成 .jpg即为的图片
+      res.message.goods_introduce = res.message.goods_introduce
+        .replace(/<img /g, '<img style="display:block;" ')
+        .replace(/webp/g, "jpg");
+      this.goodsInfo = res.message;
+    },
+
+    //处理点击函数 preview()
+    preview(i) {
+      //调用 uni.previewImage() 方法预览图片
+      uni.previewImage({
+        //预览时显示图片的索引
+        current: i,
+        //所有图片 url 地址的数组; this.goodsInfo.pics是一个数组通过map来实现循环数组;
+        //每循环一次都会获得 item项获取到 item.pics_big为图片的地址
+        urls: this.goodsInfo.pics.map((parms) => parms.pics_big),
+      });
+    },
+    
+    //左侧按钮的点击事件,跳转到购物车
+    onClick(e){
+      console.log(e); //content: {icon: "cart", text: "购物车", info: 0}
+      if(e.content.text === "购物车"){
+          //实现 tabBar页面的跳转
+          uni.switchTab({
+            url:"/pages/cart/cart"
+          })
+      }
+    }
+  },
+
   onReady: function () {},
   //下拉 刷新事件
   onPullDownRefresh: function () {},
@@ -18,4 +140,60 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
+.goods-detail-container{
+  padding-bottom: 10px;
+// 轮播图样式
+swiper {
+  height: 750rpx;
+  image {
+    width: 100%;
+    height: 100%;
+  }
+}
+// 商品信息区域
+.goods-info-box {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 10px;
+
+  //  价格
+  .goods-price {
+    font-size: 25px;
+    color: #c00000;
+  }
+  //  内容
+  .goods-content {
+    display: flex;
+    justify-content: space-between;
+    height: 100rpx;
+    .goods-intro {
+      width: 100%;
+      font-size: 13px;
+      padding-right: 10px;
+    }
+    .goods-icon {
+      width: 150rpx;
+      vertical-align: middle;
+      text-align: center;
+      color: grey;
+      border-left: 1px solid #efefef;
+    }
+  }
+  //  运费
+  .goods-carriage {
+    margin-top: 20px;
+    font-size: 12px;
+  }
+}
+
+//底部导航栏区域
+
+.goods-nav{
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+}
+
 </style>
