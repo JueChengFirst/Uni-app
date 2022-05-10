@@ -61,9 +61,10 @@
 <script>
 // 导入组件 
 import mySearch from '../../components/my-search/my-search.vue';
-
+import badgeMix from '@/mixins/tabbar-badge.js'
 export default {
   components: { mySearch },
+  mixins: [badgeMix],
   data() {
     return {
       //分类数据列表  所有分类列表数据
